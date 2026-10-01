@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - จัดการฐานข้อมูล UmamiUnit</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", sans-serif; background: #f6f5f2; margin: 0; padding: 24px; color: #222; }
+  h1 { margin-top: 0; }
+  a.back { display:inline-block; margin-bottom:16px; color:#b23a2f; text-decoration:none; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .card h2 { margin-top: 0; font-size: 18px; }
+  form { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  input, select, textarea { padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; flex: 1 1 140px; }
+  button { cursor: pointer; border: none; border-radius: 6px; padding: 8px 14px; font-size: 14px; }
+  .btn-add { background: #b23a2f; color: #fff; flex: 1 1 100%; }
+  .btn-edit { background: #eee; }
+  .btn-del { background: #fee; color: #b23a2f; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #eee; vertical-align: middle; }
+  th { color: #888; font-weight: 600; }
+  .actions { display: flex; gap: 6px; }
+  .status { font-size: 13px; margin-bottom: 12px; min-height: 18px; }
+  .status.ok { color: #2a7d46; }
+  .status.err { color: #b23a2f; }
+  .scroll { max-height: 360px; overflow-y: auto; }
+</style>
+</head>
+<body>
+  <a class="back" href="./index.html">← กลับหน้าร้าน</a>
+  <h1>🛠️ จัดการฐานข้อมูล (ไม่ต้องล็อกอิน)</h1>
+  <p>หน้านี้เชื่อมต่อ REST API (Node.js + Express + MongoDB) โดยตรง ใช้ทดสอบ เพิ่ม / แก้ไข / ลบ ข้อมูลของทั้ง 2 ตาราง</p>
+
+  <div class="grid">
+    <!-- CATEGORIES -->
+    <div class="card">
+      <h2>📁 หมวดหมู่ (Categories)</h2>
+      <div id="catStatus" class="status"></div>
+      <form id="catForm">
+        <input type="hidden" id="catId">
+        <input type="text" id="catKey" placeholder="key เช่น โชยุ" required>
+        <input type="text" id="catName" placeholder="ชื่อหมวดหมู่" required>
+        <input type="text" id="catIcon" placeholder="อีโมจิไอคอน" required>
+        <button type="submit" class="btn-add" id="catSubmitBtn">+ เพิ่มหมวดหมู่</button>
+      </form>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Icon</th><th>Key</th><th>ชื่อ</th><th></th></tr></thead>
+          <tbody id="catTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="card">
+      <h2>📦 สินค้า (Products)</h2>
+      <div id="prodStatus" class="status"></div>
+      <form id="prodForm">
+        <input type="hidden" id="prodMongoId">
+        <input type="number" id="prodId" placeholder="id (ตัวเลข)" required>
+        <input type="text" id="prodName" placeholder="ชื่อสินค้า" required>
+        <input type="text" id="prodBrand" placeholder="แบรนด์" required>
+        <select id="prodCategory" required></select>
+        <input type="number" id="prodPrice" placeholder="ราคา" required>
+        <input type="text" id="prodSize" placeholder="ขนาด">
+        <input type="text" id="prodIcon" placeholder="อีโมจิไอคอน">
+        <input type="text" id="prodImage" placeholder="path รูปภาพ">
+        <textarea id="prodDesc" placeholder="คำอธิบาย" rows="2" style="flex:1 1 100%;"></textarea>
+        <button type="submit" class="btn-add" id="prodSubmitBtn">+ เพิ่มสินค้า</button>
+      </form>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>#</th><th>ชื่อ</th><th>หมวดหมู่</th><th>ราคา</th><th></th></tr></thead>
+          <tbody id="prodTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<script src="./admin.js"></script>
+</body>
+</html>

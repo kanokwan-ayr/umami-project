@@ -1,0 +1,9 @@
+# คัดลอกไฟล์นี้เป็น .env แล้วแก้ค่าตามฐานข้อมูลของคุณ
+
+# ถ้าใช้ MongoDB ที่ลงในเครื่องตัวเอง (local):
+MONGODB_URI=mongodb://127.0.0.1:27017/umamiunit
+
+# หรือถ้าใช้ MongoDB Atlas (ฟรี, ไม่ต้องลงอะไรในเครื่อง) ให้ใช้รูปแบบนี้แทน:
+# MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-url>/umamiunit?retryWrites=true&w=majority
+
+PORT=5000
